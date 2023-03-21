@@ -10,6 +10,12 @@
     <%= javascript_importmap_tags %>
   </head>
   <body>
+    <% flash.each do |type, msg| %>
+      <div id="flash_message">
+        <%= msg %>
+      </div>
+    <% end %>
+    
     <p><%= link_to "Home", root_path %></p>
     <p>Welcome to Viewing Party!</p>
     <%= yield %>
