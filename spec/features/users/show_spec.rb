@@ -19,7 +19,7 @@ RSpec.describe "User dashboard(show) page", type: :feature do
 
       click_button "Discover Movies"
 
-      expect(current_path).to eq(discover_user_path(@adam.id))
+      expect(current_path).to eq(user_discover_index_path(@adam.id))
     end
 
     # it " I see a section that lists viewing parties" do
