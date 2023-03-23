@@ -21,9 +21,5 @@ RSpec.describe "User dashboard(show) page", type: :feature do
 
       expect(current_path).to eq(user_discover_index_path(@adam.id))
     end
-
-    # it " I see a section that lists viewing parties" do
-    #   expect(page).to has_section?("view_parties_container")
-    # end
   end
 end
