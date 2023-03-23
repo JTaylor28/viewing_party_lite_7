@@ -1,0 +1,12 @@
+<p><%= button_to "Discover Movies", user_discover_index_path(@user), method: :get %></p>
+<% if @movies %>
+<div id="movies">
+  <ul>
+    <% @movies.each do |movie| %>
+      <p>
+          <%= movie.title %> &emsp; Vote Average: <%= movie.vote_average.round(1) %>
+      </p>
+    <% end %>
+  </ul>
+</div>
+<% end %>
