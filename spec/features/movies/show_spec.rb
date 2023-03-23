@@ -7,11 +7,9 @@ RSpec.describe "movie's detail page", type: :feature do
     VCR.use_cassette("movie_details", serialize_with: :json) do
       visit user_movie_path(@adam, 238)
     end
-    save_and_open_page
   end
 
   describe "when I visit the movie destails page" do
-
     it "should see a button to return to the discover page" do 
       expect(page).to have_button("Discover Movies")
 
@@ -35,9 +33,11 @@ RSpec.describe "movie's detail page", type: :feature do
       expect(page).to have_content("Runtime: 2hr 55min")
       expect(page).to have_content("Genre: Drama, Crime")
       expect(page).to have_content("Spanning the years 1945 to 1955, a chronicle of the fictional Italian-American Corleone crime family. When organized crime family patriarch, Vito Corleone barely survives an attempt on his life, his youngest son, Michael steps in to take care of the would-be killers, launching a campaign of bloody revenge.")
+      
       within("#cast"){
         expect(page).to have_css("li", count: 10)
       } 
+      
       within("#reviews"){
         expect(page).to have_content("2 Reviews")
         expect(page).to have_css("li", count: 2)

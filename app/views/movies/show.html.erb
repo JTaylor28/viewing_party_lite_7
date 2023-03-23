@@ -27,10 +27,11 @@
    <ul>
     <% @movie_facade.movie.reviews.each do |review| %>
       <li>
-        <% review.author %>, Rating: <% review.rating %>
+        User: <%= review.author %>, Rating: <%= review.rating %>
         <br>
-        <% review.content  %>
+        Review: <%= review.content  %>
       </li>
+      <br>
     <%end%>
   </ul>
 </div>
