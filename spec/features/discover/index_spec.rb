@@ -11,7 +11,9 @@ RSpec.describe "User Discover Index Page" do
       it "has a button to discover top rated movies which directs me to '/users/:id/discover' page" do
         expect(page).to have_button("Find Top Rated Movies")
 
-        click_button "Find Top Rated Movies"
+        VCR.use_cassette("top_rated_movies") do
+          click_button "Find Top Rated Movies"
+        end
 
         expect(current_path).to eq(user_movies_path(@user))
       end
@@ -19,8 +21,12 @@ RSpec.describe "User Discover Index Page" do
       it "can search by keyword(s) for movie titles" do
         expect(page).to have_field(:q)
         expect(page).to have_button("Find Movies")
+        
+        fill_in :q, with: "Fight Club"
 
-        click_button "Find Movies"
+        VCR.use_cassette("fight_club_search") do
+          click_button "Find Movies"
+        end
 
         expect(current_path).to eq(user_movies_path(@user))
       end
