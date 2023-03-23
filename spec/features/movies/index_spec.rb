@@ -34,6 +34,7 @@ RSpec.describe "Movies Index Page" do
       it "should return the top movies results" do
         within("#movies") {
           expect(page).to have_css("p", count: 20 )
+          expect(page).to have_link("The Godfather")
         }
       end
     end  
@@ -55,9 +56,10 @@ RSpec.describe "Movies Index Page" do
         expect(page.status_code).to eq(200)
       end
 
-      it "should return the first twenty movie results for a given search string" do
+      it "should return the first twenty movie results for a given search string with movie titles linking to their movie show page" do
         within("#movies") {
           expect(page).to have_css("p", count: 20 )
+          expect(page).to have_link("Fight Club")
         }
       end
     end

@@ -4,7 +4,7 @@
   <ul>
     <% @movies.each do |movie| %>
       <p>
-          <%= movie.title %> &emsp; Vote Average: <%= movie.vote_average.round(1) %>
+          <%= link_to movie.title, user_movie_path(@user, movie.id) %> &emsp; Vote Average: <%= movie.vote_average.round(1) %>
       </p>
     <% end %>
   </ul>

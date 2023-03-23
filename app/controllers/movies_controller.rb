@@ -8,4 +8,8 @@ class MoviesController < ApplicationController
       @movies = MovieFacade.search_movies(params[:q])
     end
   end
+
+  def show
+    
+  end
 end
