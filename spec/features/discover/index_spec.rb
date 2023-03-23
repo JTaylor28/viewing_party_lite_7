@@ -11,7 +11,7 @@ RSpec.describe "User Discover Index Page" do
       it "has a button to discover top rated movies which directs me to '/users/:id/discover' page" do
         expect(page).to have_button("Find Top Rated Movies")
 
-        VCR.use_cassette("top_rated_movies") do
+        VCR.use_cassette("top_rated_movies", serialize_with: :json) do
           click_button "Find Top Rated Movies"
         end
 
@@ -24,7 +24,7 @@ RSpec.describe "User Discover Index Page" do
         
         fill_in :q, with: "Fight Club"
 
-        VCR.use_cassette("fight_club_search") do
+        VCR.use_cassette("fight_club_search", serialize_with: :json) do
           click_button "Find Movies"
         end
 

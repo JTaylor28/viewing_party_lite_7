@@ -1,12 +1,10 @@
 <p><%= button_to "Discover Movies", user_discover_index_path(@user), method: :get %></p>
-<% if @movies %>
 <div id="movies">
   <ul>
-    <% @movies.each do |movie| %>
+    <% @movie_facade.retrieve_movies.each do |movie| %>
       <p>
           <%= link_to movie.title, user_movie_path(@user, movie.id) %> &emsp; Vote Average: <%= movie.vote_average.round(1) %>
       </p>
     <% end %>
   </ul>
 </div>
-<% end %>

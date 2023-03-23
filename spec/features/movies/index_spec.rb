@@ -10,7 +10,7 @@ RSpec.describe "Movies Index Page" do
 
     context "Top Movies" do
       before(:each) do
-        VCR.use_cassette("top_rated_movies") do
+        VCR.use_cassette("top_rated_movies", serialize_with: :json) do
           click_button "Find Top Rated Movies"
         end
       end
@@ -43,7 +43,7 @@ RSpec.describe "Movies Index Page" do
       before(:each) do
         fill_in :q, with: "Fight Club"
 
-        VCR.use_cassette("fight_club_search") do
+        VCR.use_cassette("fight_club_search", serialize_with: :json) do
           click_button "Find Movies"
         end
       end

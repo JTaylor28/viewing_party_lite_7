@@ -1,15 +1,27 @@
 class MovieFacade
-  def self.top_rated_movies
+  def initialize(params)
+    @params = params
+  end
+
+  def retrieve_movies
+    if @params[:q] ==  "top rated"
+      top_rated_movies
+    else
+      search_movies(@params[:q])
+    end
+  end
+
+  def top_rated_movies
     service = MovieService.new
 
     json = service.top_rated_movies
 
     @movies = json[:results].map do |movie_data|
-      create_movie(movie_data)
+      Movie.new(movie_data)
     end
   end
 
-  def self.search_movies(keyword)
+  def search_movies(keyword)
     service = MovieService.new
 
     encoded_keyword = CGI::escape(keyword)
@@ -17,20 +29,7 @@ class MovieFacade
     json = service.search_movies(encoded_keyword)
 
     @movies = json[:results].map do |movie_data|
-      create_movie(movie_data)
+      Movie.new(movie_data)
     end
-  end
-
-  private
-  def self.create_movie(data)
-    service = MovieService.new
-
-    movie_id = data[:id]
-    
-    review_data = service.movie_reviews(movie_id)
-    cast_data = service.movie_cast(movie_id)
-    movie_data = service.movie_details(movie_id)
-
-    Movie.new(movie_data, review_data, cast_data)
   end
 end
