@@ -23,7 +23,7 @@ class ViewingPartiesController < ApplicationController
   end
 
   private
-  
+
   def viewing_party_params
     params.permit(:duration_minutes, :party_date, :party_time, :movie_id, :host_id)
   end
