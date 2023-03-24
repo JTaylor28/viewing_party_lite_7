@@ -14,5 +14,14 @@
  *= require_self
  */
 .view_parties_container{
-  
+
+  border-top: 5px solid #2d3f1f;
+
+}
+.viewing_party_container {
+  padding: 10px;
+  margin: 10px;
+  border-radius: 25px;
+  border: 5px solid #2d3f1f;
+  display: inline-block;
 }

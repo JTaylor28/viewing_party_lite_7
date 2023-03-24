@@ -12,7 +12,7 @@ class ViewingPartiesController < ApplicationController
     if viewing_party.save
       flash[:notice] = "Viewing party created"
       
-      create_viewing_party_users(params[:users], viewing_party.id)
+      create_viewing_party_users(params[:users], viewing_party.id, params[:user_id])
 
       redirect_to user_path(params[:user_id])
       
@@ -27,7 +27,9 @@ class ViewingPartiesController < ApplicationController
     params.permit(:duration_minutes, :party_date, :party_time, :movie_id, :host_id)
   end
 
-  def create_viewing_party_users(users, viewing_party_id)
+  def create_viewing_party_users(users, viewing_party_id, host_id)
+    ViewingPartyUser.create!(user_id: host_id, viewing_party_id: viewing_party_id)
+    
     users.reject { |user, checkbox| checkbox == "0"}.each do |user|
       ViewingPartyUser.create!(user_id: user[0].to_i, viewing_party_id: viewing_party_id)
     end

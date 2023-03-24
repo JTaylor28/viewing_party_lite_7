@@ -20,4 +20,12 @@ class ViewingParty < ApplicationRecord
       errors.add(:duration_minutes, "cannot be less than movie runtime")
     end
   end
+
+  def host
+    self.users.where(id: self.host_id).first
+  end
+
+  def guests
+    self.users.where.not(id: self.host_id)
+  end
 end

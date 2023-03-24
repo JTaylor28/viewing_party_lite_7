@@ -5,6 +5,7 @@ class Movie
               :runtime,
               :genres,
               :summary,
+              :image_path,
               :cast,
               :reviews
 
@@ -15,6 +16,7 @@ class Movie
     @runtime = data[:runtime]
     @genres = data[:genres]
     @summary = data[:overview]
+    @image_path = data[:poster_path]
     @reviews = create_reviews(data)
     @cast = create_cast(data)
   end

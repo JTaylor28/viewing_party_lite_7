@@ -1,6 +1,14 @@
 class MovieFacade
-  def initialize(params)
+  def initialize(params = nil)
     @params = params
+  end
+
+  def find_movie(movie_id)
+    service = MovieService.new
+
+    json = service.movie_details(movie_id)
+
+    Movie.new(json)
   end
 
   def retrieve_movies
