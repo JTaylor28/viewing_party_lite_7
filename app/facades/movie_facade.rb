@@ -32,7 +32,7 @@ class MovieFacade
   def search_movies(keyword)
     service = MovieService.new
 
-    encoded_keyword = CGI::escape(keyword)
+    encoded_keyword = CGI.escape(keyword)
 
     json = service.search_movies(encoded_keyword)
 
