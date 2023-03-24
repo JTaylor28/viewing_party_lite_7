@@ -35,9 +35,16 @@ class MovieFacade
 
   def movie
     service = MovieService.new
-    movie_json = service.movie_details(@params[:id])
-    review_json = service.movie_reviews(@params[:id])
-    cast_json = service.movie_cast(@params[:id])
+
+    if @params[:id]
+      movie_json = service.movie_details(@params[:id])
+      review_json = service.movie_reviews(@params[:id])
+      cast_json = service.movie_cast(@params[:id])
+    else 
+      movie_json = service.movie_details(@params[:movie_id])
+      review_json = service.movie_reviews(@params[:movie_id])
+      cast_json = service.movie_cast(@params[:movie_id])
+    end
 
     combined_json_data = combine_json_data([movie_json, review_json, cast_json])
     Movie.new(combined_json_data)
