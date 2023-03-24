@@ -85,7 +85,7 @@ RSpec.describe "New Viewing Party Page" do
         end
 
         expect(current_path).to eq(new_user_movie_viewing_party_path(@james, 550))
-        within("#flash_message") { expect(page).to have_content("Unable to create viewing party - [\"Party date can't be in the past\"]")}
+        within("#flash_message") { expect(page).to have_content("Unable to create viewing party - [\"Party date cannot be in the past\"]")}
       end
     end
   end

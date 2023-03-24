@@ -4,28 +4,28 @@ class ViewingParty < ApplicationRecord
 
   validate :party_date_cannot_be_in_the_past
   validate :duration_cannot_be_less_than_movie
-  
+
   validates_presence_of :party_date, :party_time
 
   def party_date_cannot_be_in_the_past
-    if party_date.present? && party_date < Date.today
-      errors.add(:party_date, "can't be in the past")
-    end
+    return unless party_date.present? && party_date < Date.today
+    
+    errors.add(:party_date, 'cannot be in the past')
   end
 
   def duration_cannot_be_less_than_movie
-    movie_runtime = MovieFacade.new(movie_id: self.movie_id).movie.runtime
+    movie_runtime = MovieFacade.new(movie_id: movie_id).movie.runtime
 
-    if duration_minutes < movie_runtime
-      errors.add(:duration_minutes, "cannot be less than movie runtime")
-    end
+    return unless duration_minutes < movie_runtime
+
+    errors.add(:duration_minutes, 'cannot be less than movie runtime')
   end
 
   def host
-    self.users.where(id: self.host_id).first
+    users.where(id: self.host_id).first
   end
 
   def guests
-    self.users.where.not(id: self.host_id)
+    users.where.not(id: self.host_id)
   end
 end
