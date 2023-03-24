@@ -21,7 +21,9 @@ RSpec.describe "movie's detail page", type: :feature do
     it "should have a button to create a viewing party" do 
       expect(page).to have_button("Create Viewing Party for The Godfather")
 
-      click_button("Create Viewing Party for The Godfather")
+      VCR.use_cassette("movie_details", serialize_with: :json) do
+        click_button("Create Viewing Party for The Godfather")
+      end
 
       expect(current_path).to eq(new_user_movie_viewing_party_path(@adam, 238))
     end
