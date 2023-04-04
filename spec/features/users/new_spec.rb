@@ -13,34 +13,56 @@ RSpec.describe "New User Page" do
 
       fill_in :user_name, with: "James"
       fill_in :user_email, with: "james@aol.com"
+      fill_in :user_password, with: "password123"
+      fill_in :user_password_confirmation, with: "password123"
       click_button "Create New User"
 
       expect(current_path).to eq(user_path(User.last))
     end
 
-    it 'should not be able to submit the form without the email' do
+    it 'should not be able to submit the form without the email, username, password, or password confermation' do
       fill_in :user_email, with: "james@aol.com"
       click_button "Create New User"
 
       expect(current_path).to eq(register_path)
-      within("#flash_message") { expect(page).to have_content("Unable to create new user - [\"Name can't be blank\"]")}
+      within("#flash_message") { expect(page).to have_content("Unable to create new user - [\"Name can't be blank\", \"Password can't be blank\"]")}
 
       fill_in :user_name, with: "james"
       click_button "Create New User"
 
       expect(current_path).to eq(register_path)
-      within("#flash_message") { expect(page).to have_content("Unable to create new user - [\"Email can't be blank\"]")}
+      within("#flash_message") { expect(page).to have_content("Unable to create new user - [\"Email can't be blank\", \"Password can't be blank\"]")}
+
+      fill_in :user_name, with: "james"
+      fill_in :user_email, with: "james@aol.com"
+      click_button "Create New User"
+
+      expect(current_path).to eq(register_path)
+      within("#flash_message") { expect(page).to have_content("Unable to create new user - [\"Password can't be blank\"]")}
     end
 
     it 'should not be able to submit the form without a unique email' do
-      User.create(name: "mike", email: "mike@aol.com")
+      User.create(name: "mike", email: "mike@aol.com", password: "password456")
 
       fill_in :user_name, with: "mike"
       fill_in :user_email, with: "mike@aol.com"
+      fill_in :user_password, with: "password123"
+      fill_in :user_password_confirmation, with: "password123"
       click_button "Create New User"
       
       expect(current_path).to eq(register_path)
       within("#flash_message") { expect(page).to have_content("Unable to create new user - [\"Email has already been taken\"]")}
+    end
+
+    it 'should not be able to submit the form without a matching password confirmation' do
+
+      fill_in :user_name, with: "mike"
+      fill_in :user_email, with: "mike@aol.com"
+      fill_in :user_password, with: "password123"
+      click_button "Create New User"
+
+      expect(current_path).to eq(register_path)
+      within("#flash_message") { expect(page).to have_content("Unable to create new user - [\"Password confirmation doesn't match Password\"]")}
     end
   end
 end
