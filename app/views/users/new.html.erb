@@ -1,24 +1,26 @@
-<h2>Register a New User</h2>
+<center>
+  <h2>Register a New User</h2>
 
-<%= form_with model: @user, method: :post, local: true do |form| %>
-  <p>
-    <%= form.label :name %>
-    <%= form.text_field :name %>
-  </p>
+  <%= form_with model: @user, method: :post, local: true do |form| %>
+    <p>
+      <%= form.label :name %>
+      <%= form.text_field :name %>
+    </p>
 
-  <p>
-    <%= form.label :email %>
-    <%= form.email_field :email  %>
-  </p>
+    <p>
+      <%= form.label :email %>
+      <%= form.email_field :email  %>
+    </p>
 
-  <p>
-    <%= form.label :password %>
-    <%= form.password_field :password  %>
-  </p>
-  
-  <p>
-    <%= form.label :password_confirmation %>
-    <%= form.password_field :password_confirmation  %>
-  </p>
-  <%= form.submit "Create New User" %>
-<% end %>
+    <p>
+      <%= form.label :password %>
+      <%= form.password_field :password  %>
+    </p>
+
+    <p>
+      <%= form.label :password_confirmation %>
+      <%= form.password_field :password_confirmation  %>
+    </p>
+    <%= form.submit "Create New User" %>
+  <% end %>
+</center>
