@@ -16,7 +16,8 @@
       </div>
     <% end %>
     
-    <p><%= link_to "Home", root_path %></p>
+
+    <p><%= link_to "Home", root_path %> <% if current_user %> <%= link_to "Logout", logout_path %></p> <%end%>
     <div class="main_container">
       <center><h1>Viewing Party</h1></center>
       <%= yield %>

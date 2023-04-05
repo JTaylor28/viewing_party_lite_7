@@ -1,8 +1,13 @@
 require "rails_helper"
 
 RSpec.describe "movie's detail page", type: :feature do
+  
   before(:each) do
     @adam = User.create!(name: "Adam", email: "adam@adammail.com", password: "password123")
+    visit login_path
+    fill_in :email, with: @adam.email
+    fill_in :password, with: @adam.password
+    click_button "Log In"
     
     VCR.use_cassette("movie_details", serialize_with: :json) do
       visit user_movie_path(@adam, 238)
@@ -44,6 +49,27 @@ RSpec.describe "movie's detail page", type: :feature do
         expect(page).to have_content("2 Reviews")
         expect(page).to have_css("li", count: 2)
       } 
+    end
+  end
+
+  describe "as a visitor " do
+    it " cannot create a new viewing party and is redirected back to the movie show page " do
+
+      click_link "Logout"
+
+      VCR.use_cassette("movie_details", serialize_with: :json) do
+        visit user_movie_path(@adam, 238)
+      end
+
+      VCR.use_cassette("movie_details", serialize_with: :json) do
+        click_button("Create Viewing Party for The Godfather")
+      end
+
+      VCR.use_cassette("movie_details", serialize_with: :json) do
+        expect(current_path).to eq(user_movie_path(@adam, 238))
+      end
+      
+      expect(page).to have_content("Must be logged in or registered to create a viewing party.")
     end
   end
 end

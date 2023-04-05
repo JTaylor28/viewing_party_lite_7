@@ -1,11 +1,17 @@
 <center>
+<% if current_user %>
+  <%= button_to "Logout", logout_path, method: :get %>
+<% else %>
   <p><%= button_to "Login", login_path, method: :get %></p>
   <p><%= button_to "Create new user", register_path, method: :get %></p>
+<% end %>
 
+<% if current_user %>
   <h2>Existing Users</h2>
   <div id="existing_users">
     <% @users.each do |user| %>
-      <p><%=link_to user.email, user_path(user)%></p>
+      <p><%= user.email %></p>
     <%end%>
   </div>
+<%end%>
 </center>

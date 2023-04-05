@@ -3,11 +3,15 @@ require "rails_helper"
 RSpec.describe "New Viewing Party Page" do
   describe "As a user" do
     describe "When I visit the new viewing party page (/users/:user_id/movies/:movid_id/viewing-party/new, where :user_id is a valid user's id)", :vcr do
-      before(:each) do
+      before(:each) do      
         @james = User.create!(name: "James", email: "james@email.com", password: "password123")
         @adam = User.create!(name: "Adam", email: "adam@email.com", password: "password123")
         @mike = User.create!(name: "Mike", email: "mike@email.com", password: "password123")
         @abdul = User.create!(name: "Abdul", email: "abdul@email.com", password: "password123")
+        visit login_path
+        fill_in :email, with: @james.email
+        fill_in :password, with: @james.password
+        click_button "Log In"
         
         visit new_user_movie_viewing_party_path(@james, 550)
       end

@@ -1,10 +1,14 @@
 require "rails_helper"
 
 RSpec.describe "User dashboard(show) page", type: :feature do
-  before :each do
+  before :each do 
     @adam = User.create!(name: "Adam", email: "adam@aol.com", password: "password123")
     @james = User.create!(name: "James", email: "james@gmail.com", password: "password123")
     @mike = User.create!(name: "Mike", email: "mike@hotmail.com", password: "password123")
+    visit login_path
+    fill_in :email, with: @adam.email
+    fill_in :password, with: @adam.password
+    click_button "Log In"
   end
 
   describe " when I visit the user dashboard" do
@@ -44,7 +48,7 @@ RSpec.describe "User dashboard(show) page", type: :feature do
             expect(page).to have_content("James")
           }
         }
-
+        
       end      
     end
   end

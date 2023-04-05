@@ -1,4 +1,6 @@
 class ViewingPartiesController < ApplicationController
+  before_action :require_login
+  
   def new
     @user = User.find(params[:user_id])
     @users = User.all
@@ -33,6 +35,13 @@ class ViewingPartiesController < ApplicationController
 
     users.reject { |user, checkbox| checkbox == "0"}.each do |user|
       ViewingPartyUser.create!(user_id: user[0].to_i, viewing_party_id: viewing_party_id)
+    end
+  end
+
+  def require_login
+    if !session[:user_id]
+      flash[:notice] = "Must be logged in or registered to create a viewing party."
+      redirect_to user_movie_path(params[:user_id], params[:movie_id])
     end
   end
 end
